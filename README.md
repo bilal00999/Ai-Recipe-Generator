@@ -68,34 +68,64 @@ Database: MongoDB (for saving recipes)
 
 Hosting: Vercel (frontend, backend), n8n Cloud (AI)
 
-## 📁 Project Structure
 
-grand_project/
-├── src/
-│   ├── pages/
-│   │   ├── LoginPage.jsx          # User authentication
-│   │   ├── DashboardPage.jsx      # Main recipe generation
-│   │   ├── HistoryPage.jsx        # Recipe history and search
-│   │   ├── HomePage.jsx           # Landing page
-│   │   └── RecipeViewPage.jsx     # Individual recipe view
-│   ├── components/
-│   │   ├── ProtectedRoute.jsx     # Authentication wrapper
-│   │   └── ui/                    # Reusable UI components
-│   ├── contexts/
-│   │   └── AuthContext.jsx        # User authentication state
-│   ├── services/
-│   │   └── recipeService.js       # API communication
-│   ├── lib/
-│   │   ├── supabase.js           # Database configuration
-│   │   └── utils.js              # Utility functions
-│   └── hooks/
-│       └── use-mobile.js         # Responsive design hooks
+# 📁 Project Structure
+
+```bash
+ai-recipe-generator/
+│
+├── frontend/
+│   ├── public/
+│   │
+│   ├── src/
+│   │   ├── pages/
+│   │   │   ├── HomePage.jsx
+│   │   │   ├── LoginPage.jsx
+│   │   │   ├── DashboardPage.jsx
+│   │   │   ├── HistoryPage.jsx
+│   │   │   └── RecipeViewPage.jsx
+│   │   │
+│   │   ├── components/
+│   │   │   ├── ProtectedRoute.jsx
+│   │   │   └── ui/
+│   │   │
+│   │   ├── contexts/
+│   │   │   └── AuthContext.jsx
+│   │   │
+│   │   ├── services/
+│   │   │   └── recipeService.js
+│   │   │
+│   │   ├── hooks/
+│   │   │   └── use-mobile.js
+│   │   │
+│   │   ├── lib/
+│   │   │   ├── supabase.js
+│   │   │   └── utils.js
+│   │   │
+│   │   ├── App.jsx
+│   │   ├── main.jsx
+│   │   └── index.css
+│   │
+│   ├── package.json
+│   └── vite.config.js
+│
 ├── backend/
-│   ├── server.js                 # Express server
 │   ├── routes/
-│   │   └── recipes.js            # Recipe API endpoints
+│   │   └── recipes.js
+│   │
 │   ├── models/
-│   │   └── Recipe.js             # Recipe data model
-│   └── middleware/
-│       └── auth.js               # Authentication middleware
-└── public/                       # Static assets
+│   │   └── Recipe.js
+│   │
+│   ├── middleware/
+│   │   └── auth.js
+│   │
+│   ├── server.js
+│   ├── package.json
+│   └── .env
+│
+├── n8n/
+│   └── recipe-generation-workflow.json
+│
+├── README.md
+└── .gitignore
+```
