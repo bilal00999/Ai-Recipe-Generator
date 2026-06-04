@@ -9,7 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { ChefHat, ArrowLeft, Mail, Zap } from "lucide-react";
+import { ChefHat, ArrowLeft, Mail } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
@@ -19,7 +19,7 @@ export default function LoginPage() {
   const [emailSent, setEmailSent] = useState(false);
   const [error, setError] = useState("");
   const [countdown, setCountdown] = useState(0);
-  const { signInWithMagicLink, demoLogin, user } = useAuth();
+  const { signInWithMagicLink, user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -66,14 +66,6 @@ export default function LoginPage() {
       setError("An unexpected error occurred. Please try again.");
     } finally {
       setIsLoading(false);
-    }
-  };
-
-  const handleDemoLogin = () => {
-    const user = demoLogin(email || "demo@example.com");
-    if (user) {
-      const from = location.state?.from?.pathname || "/dashboard";
-      navigate(from, { replace: true });
     }
   };
 
@@ -167,31 +159,6 @@ export default function LoginPage() {
                   We'll send you a secure login link. No password required!
                 </p>
               </form>
-
-              {/* Demo Login Button */}
-              <div className="relative">
-                <div className="absolute inset-0 flex items-center">
-                  <span className="w-full border-t" />
-                </div>
-                <div className="relative flex justify-center text-xs uppercase">
-                  <span className="bg-white px-2 text-gray-500">
-                    Or for demo
-                  </span>
-                </div>
-              </div>
-
-              <Button
-                onClick={handleDemoLogin}
-                variant="outline"
-                className="w-full border-emerald-600 text-emerald-600 hover:bg-emerald-50"
-              >
-                <Zap className="h-4 w-4 mr-2" />
-                Quick Demo Login
-              </Button>
-
-              <p className="text-xs text-gray-500 text-center">
-                Skip the email step and try the app immediately
-              </p>
             </div>
           ) : (
             <div className="text-center space-y-4">

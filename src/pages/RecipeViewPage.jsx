@@ -92,7 +92,7 @@ export default function RecipeViewPage() {
           url: window.location.href,
         });
       } catch (error) {
-        console.log("Error sharing:", error);
+        // Handle error silently
       }
     } else {
       // Fallback: copy to clipboard
@@ -157,19 +157,13 @@ export default function RecipeViewPage() {
 
   // Ensure instructions is always an array
   let safeInstructions = instructions;
-  console.log("Original instructions:", instructions);
-  console.log("Type of instructions:", typeof instructions);
 
   if (typeof safeInstructions === "string") {
     safeInstructions = safeInstructions.split("\n").filter(Boolean);
-    console.log("After splitting string:", safeInstructions);
   }
   if (!Array.isArray(safeInstructions)) {
     safeInstructions = [];
-    console.log("Defaulting to empty array");
   }
-
-  console.log("Final safeInstructions:", safeInstructions);
 
   return (
     <div className="min-h-screen bg-gray-50">

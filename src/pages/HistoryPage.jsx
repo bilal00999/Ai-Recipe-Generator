@@ -47,29 +47,19 @@ export default function HistoryPage() {
   const loadRecipes = async () => {
     try {
       const recipes = await recipeService.fetchRecipesFromBackend(jwt);
-      console.log("Loaded recipes:", recipes);
-      console.log(
-        "Recipe titles:",
-        recipes.map((r) => r.title)
-      );
       setRecipes(recipes);
     } catch (error) {
-      console.error("Error loading recipes:", error);
+      // Handle error silently
     } finally {
       setLoading(false);
     }
   };
 
   const filterRecipes = () => {
-    console.log("Filtering recipes...");
-    console.log("Search term:", searchTerm);
-    console.log("Filter type:", filterType);
-    console.log("Total recipes:", recipes.length);
     let filtered = recipes;
 
     // Filter by search term
     if (searchTerm) {
-      console.log("Filtering by search term:", searchTerm);
       filtered = filtered.filter(
         (recipe) =>
           recipe.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -81,12 +71,10 @@ export default function HistoryPage() {
               tag.toLowerCase().includes(searchTerm.toLowerCase())
             ))
       );
-      console.log("Filtered recipes count:", filtered.length);
     }
 
     // Filter by type
     if (filterType !== "all") {
-      console.log("Filtering by type:", filterType);
       filtered = filtered.filter(
         (recipe) =>
           recipe.tags &&
@@ -94,10 +82,8 @@ export default function HistoryPage() {
             tag.toLowerCase().includes(filterType.toLowerCase())
           )
       );
-      console.log("After type filter count:", filtered.length);
     }
 
-    console.log("Final filtered recipes:", filtered.length);
     setFilteredRecipes(filtered);
   };
 

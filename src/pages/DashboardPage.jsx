@@ -46,33 +46,20 @@ export default function DashboardPage() {
   const fetchRecentRecipes = async () => {
     try {
       const recipes = await recipeService.fetchRecipesFromBackend(jwt);
-      console.log("Fetched recipes:", recipes);
       setRecentRecipes(recipes.slice(0, 4)); // Show only first 4 recipes
-    } catch (e) {
-      console.error("Error fetching recipes:", e);
+    } catch {
       setRecentRecipes([]);
     }
   };
 
   // Save recipe to backend
   const saveRecipeToHistory = async (recipeObj) => {
-    console.log("=== saveRecipeToHistory START ===");
-    console.log("recipeObj:", recipeObj);
-    console.log("hasSaved:", hasSaved);
-    console.log("recipeObj truthy:", !!recipeObj);
-    console.log("=== saveRecipeToHistory called ===");
-    console.log("recipeObj received:", recipeObj);
-    console.log("hasSaved:", hasSaved);
     if (!recipeObj || hasSaved) return;
-    console.log("Proceeding with save...");
     try {
       // Convert instructions array to string if needed
-      console.log("Original instructions:", recipeObj.instructions);
-      console.log("First instruction object:", recipeObj.instructions[0]);
       const instructions = Array.isArray(recipeObj.instructions)
         ? recipeObj.instructions
             .map((step) => {
-              console.log("Processing step:", step);
               if (typeof step === "string") return step;
               if (typeof step === "object") {
                 const text =
@@ -82,7 +69,6 @@ export default function DashboardPage() {
                   step.content ||
                   step.step ||
                   "";
-                console.log("Extracted text:", text);
                 return text;
               }
               return "";
@@ -90,11 +76,8 @@ export default function DashboardPage() {
             .filter(Boolean)
             .join("\n")
         : recipeObj.instructions;
-      console.log("Instructions converted:", instructions);
 
       // Add ingredients if missing (use the original input ingredients)
-      console.log("recipeObj.cookingTime:", recipeObj.cookingTime);
-      console.log("recipeObj.cookTime:", recipeObj.cookTime);
       const extractedCookTime =
         extractCookTime(recipeObj.cookingTime) ||
         extractCookTime(recipeObj.cookTime);
@@ -123,10 +106,7 @@ export default function DashboardPage() {
       console.log("recipeService.saveRecipeToBackend completed successfully");
       setHasSaved(true);
       fetchRecentRecipes();
-    } catch (e) {
-      console.error("Error in saveRecipeToHistory:", e);
-      console.error("Error saving recipe:", e);
-    }
+    } catch {}
   };
 
   // Generate recipe handler
@@ -170,16 +150,6 @@ export default function DashboardPage() {
         }
       }
       setRecipe(recipeObj);
-      console.log("AI Generated Recipe Object:", recipeObj);
-      console.log("Full recipeObj keys:", Object.keys(recipeObj));
-      console.log(
-        "Testing extractCookTime with '40 minutes':",
-        extractCookTime("40 minutes")
-      );
-      console.log(
-        "Testing extractCookTime with '25 min':",
-        extractCookTime("25 min")
-      );
       if (recipeObj) {
         await saveRecipeToHistory(recipeObj);
         // Navigation will happen inside saveRecipeToHistory

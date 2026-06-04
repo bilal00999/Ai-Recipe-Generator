@@ -324,11 +324,6 @@ Make sure the recipe is practical, uses the provided ingredients as main compone
 
   // Save recipe to backend
   async saveRecipeToBackend(recipe, jwt) {
-    console.log("=== saveRecipeToBackend called ===");
-    console.log("Recipe to save:", recipe);
-    console.log("JWT:", jwt ? "Present" : "Missing");
-    console.log("Backend URL:", this.backendUrl);
-
     try {
       // Ensure instructions is a string
       let instructions = recipe.instructions;
@@ -352,17 +347,12 @@ Make sure the recipe is practical, uses the provided ingredients as main compone
         ingredients: ingredients,
         instructions: instructions,
         cookTime: (() => {
-          console.log("recipe.cookingTime in service:", recipe.cookingTime);
-          console.log("recipe.cookTime in service:", recipe.cookTime);
           const extracted =
             this.extractCookTime(recipe.cookingTime) ||
             this.extractCookTime(recipe.cookTime);
-          console.log("Extracted cookTime in service:", extracted);
           return extracted || 30;
         })(),
       };
-
-      console.log("Request body to send:", requestBody);
 
       const response = await fetch(`${this.backendUrl}/recipes`, {
         method: "POST",
@@ -372,18 +362,14 @@ Make sure the recipe is practical, uses the provided ingredients as main compone
         },
         body: JSON.stringify(requestBody),
       });
-      console.log("Response status:", response.status);
-      console.log("Response ok:", response.ok);
       if (!response.ok) {
         const errorText = await response.text();
         console.error("Response error:", errorText);
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const result = await response.json();
-      console.log("Save result:", result);
       return result;
     } catch (error) {
-      console.error("saveRecipeToBackend error:", error);
       throw error;
     }
   }

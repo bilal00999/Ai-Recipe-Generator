@@ -6,7 +6,6 @@ const supabaseAuth = (req, res, next) => {
 
   // If no JWT secret is configured, skip authentication for development
   if (!process.env.SUPABASE_JWT_SECRET) {
-    console.log("No SUPABASE_JWT_SECRET found, skipping authentication");
     req.user = { sub: "temp-user-id" }; // Temporary user ID
     return next();
   }
@@ -20,7 +19,6 @@ const supabaseAuth = (req, res, next) => {
     req.user = decoded;
     next();
   } catch (err) {
-    console.error("JWT verification error:", err);
     return res.status(401).json({ error: "Invalid token" });
   }
 };
