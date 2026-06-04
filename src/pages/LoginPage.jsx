@@ -52,12 +52,12 @@ export default function LoginPage() {
       } else {
         if (result.message?.toLowerCase().includes("too many requests")) {
           setError(
-            "You've requested too many login links. Please wait 30 seconds before trying again. This limit may apply per device or IP. For testing, try using a different browser, incognito window, or wait before trying again."
+            "You've requested too many login links. Please wait 30 seconds before trying again. This limit may apply per device or IP. For testing, try using a different browser, incognito window, or wait before trying again.",
           );
           setCountdown(30);
         } else {
           setError(
-            result.message || "Failed to send magic link. Please try again."
+            result.message || "Failed to send magic link. Please try again.",
           );
         }
       }
