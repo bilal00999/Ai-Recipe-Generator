@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-﻿# nexium-grand-project
-=======
 # 🍳 AI Recipe Generator
 
 A smart recipe app that helps you create recipes from whatever ingredients you have at home. Just type what you’ve got, hit generate, and get a step-by-step recipe instantly using AI.
